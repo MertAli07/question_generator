@@ -2,3 +2,4 @@ dataset/
 .env
 math_solver_package/
 mertenv/
+generate_keys.py

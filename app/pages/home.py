@@ -1,4 +1,7 @@
+from pathlib import Path
 import streamlit as st
+
+
 
 st.title("🏫 Question Generator 🖌️")
 st.write("This is the home page of the Question Generator app. Navigate to the sections to start generating questions.")
@@ -31,3 +34,8 @@ with col4:
 
 st.write("Presented by _Goaltech_")
 st.image("app/assets/image.png", width=300)
+
+# home.py
+authenticator = st.session_state.authenticator
+st.sidebar.success(f"Welcome {st.session_state.name}!")
+authenticator.logout("Logout", "sidebar")
