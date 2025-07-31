@@ -6,7 +6,7 @@ import time
 
 st.set_page_config(page_title="Question Generator", layout="wide")
 API_URL = ""
-client_runtime = boto3.client("bedrock-agent-runtime")
+client_runtime = boto3.client("bedrock-agent-runtime", region_name="us-east-1")
 
 with st.sidebar:
     st.sidebar.title("Configuration")
