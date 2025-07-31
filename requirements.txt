@@ -1,0 +1,11 @@
+langchain
+langgraph
+langchain-ollama
+ollama
+langchain-community
+langchain-groq
+python-dotenv
+wolframalpha
+langchain-aws
+streamlit
+tqdm
