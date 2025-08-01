@@ -84,12 +84,16 @@ else:
         icon=":material/edit:",
     )
 
-
+    turkish_question_page= st.Page(
+        page="pages/turkish_question.py",
+        title="Turkish Question",
+        icon=":material/question_answer:",
+    )
 
     pg = st.navigation(
         {
             "Home": [home_page],
-            "Exams": [turkish_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
+            "Exams": [turkish_question_page, turkish_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
             "About Us": [about_page],
         }
     )
