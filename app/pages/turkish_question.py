@@ -21,15 +21,15 @@ content_tree = {
                 "ÇARPMA YOLUYLA SAYMA",
             ],
             "Faktöriyel": [
-                "FAKTÖRİYEL NEDİR?",
+                "FAKTÖRİYEL NEDİR",
                 "FAKTÖRİYEL İLE SAYMANIN TEMEL PRENSİBİ İLİŞKİSİ",
             ],
             "Permütasyon": ["PERMÜTASYON SAYISI", "TEKRARLI PERMÜTASYON"],
             "All": ["All"],
         },
-        "Basit Olayların Olasılığı": {
+        "Basit Olayların Olasılıkları": {
             "Kombinasyon": ["KOMBİNASYON", "KOMBİNASYON SAYISI"],
-            "Paskal Üçgeni ve Binom Açılımı": [
+            "Pascal Üçgeni ve Binom Açılımı": [
                 "PASCAL ÜÇGENİ – BİNOM AÇILIMI İLİŞKİSİ",
                 "BİNOM AÇILIMININ ÖZELLİKLERİ",
             ],
@@ -77,9 +77,11 @@ with col4:
                     "sub_subject": topic,
                     "title": headline,
             }
+            print(payload)
             response = requests.post(API_URL, json=payload)
             response_data = response.json()
 
 if response_data:
     st.header("Generated Question:")
+    print(response_data)
     st.write(response_data["response"])
