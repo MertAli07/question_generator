@@ -66,6 +66,7 @@ with col3:
         f"### You selected:\n- **Unit:** {unit}\n- **Sub-unit:** {sub_unit}\n- **Topic:** {topic}\n- **Headline:** {headline}"
     )
 
+response_data = None
 with col4:
     # Button to generate question
     if st.button("Generate Question", use_container_width=True):
@@ -77,4 +78,8 @@ with col4:
                     "title": headline,
             }
             response = requests.post(API_URL, json=payload)
-            st.write(response.json())
+            response_data = response.json()
+
+if response_data:
+    st.header("Generated Question:")
+    st.write(response_data["response"])
