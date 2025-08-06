@@ -51,7 +51,6 @@ if user_input:
         st.session_state.messages.append({"role": "user", "content": user_input})
 
     with st.spinner("Generating response..."):
-        # FROM API
         payload = {
             "question": user_input,
             "bloom": int(bloom_level),
@@ -59,11 +58,51 @@ if user_input:
             "k_lecture": int(k_lecture) if multiple_questions else 1,
             "k_question": int(k_question) if multiple_questions else 1,
         }
-        response = requests.post(API_URL, json=payload)
 
-        response_json = response.json()
+        # API integration
+        # response = requests.post(API_URL, json=payload)
+        # response_json = response.json()
+        # result = response_json["response"]
 
-        result = response_json["response"]
+        # Flow integration
+        response = client_runtime.invoke_flow(
+            flowIdentifier="arn:aws:bedrock:us-east-1:777179738691:flow/65JUBW14V7",
+            flowAliasIdentifier="7XLXYUG3BZ",
+            inputs=[
+                {
+                    "content": {
+                        "document": payload,
+                    },
+                    "nodeName": "FlowInputNode",
+                    "nodeOutputName": "document",
+                }
+            ],
+        )
+
+        output_lines = []
+        raw_events = []
+
+        print("output_lines", output_lines)
+
+        for event in response.get("responseStream"):
+            raw_events.append(event)
+
+            if "flowOutputEvent" in event:
+                output_lines.append(event["flowOutputEvent"]["content"]["document"])
+            elif "flowCompletionEvent" in event:
+                output_lines.append(
+                    f"Completed: {event['flowCompletionEvent']['completionReason']}"
+                )
+
+        result = ""
+        if generate_test == 1:
+            result = output_lines[0]
+        else:
+            result = output_lines
+
+        response = "\n".join(result)
+
+        result = response
 
         with st.chat_message("assistant"):
             st.write(result)
