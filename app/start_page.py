@@ -90,10 +90,16 @@ else:
         icon=":material/question_answer:",
     )
 
+    geometry_question_page = st.Page(
+        page="pages/geometry_question.py",
+        title="Geometry Question",
+        icon=":material/signal_cellular_1_bar:",
+    )
+
     pg = st.navigation(
         {
             "Home": [home_page],
-            "Exams": [math_question_page, history_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
+            "Exams": [geometry_question_page, math_question_page, history_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
             "About Us": [about_page],
         }
     )
