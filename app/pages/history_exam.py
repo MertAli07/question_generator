@@ -5,19 +5,11 @@ import boto3
 import time
 
 st.set_page_config(page_title="Question Generator", layout="wide")
-API_URL = ""
+API_URL = "https://csh7tdrm5k.execute-api.us-east-1.amazonaws.com/history_flow_invoke"
 client_runtime = boto3.client("bedrock-agent-runtime", region_name="us-east-1")
 
 with st.sidebar:
     st.sidebar.title("Configuration")
-    lesson = st.selectbox(
-        "Select a lesson",
-        ("Math", "History"),
-    )
-    grade = st.selectbox(
-        "Select a grade",
-        ("9", "10", "11", "12"),
-    )
     bloom_level = st.select_slider(
         "Select a Bloom's Taxonomy Level",
         options=[
@@ -33,10 +25,14 @@ with st.sidebar:
     multiple_questions = st.checkbox("Would you like to generate a test?")
 
     if multiple_questions:
-        st.write("Great!")
+        k_lecture = st.number_input("Lecture Count", min_value=1, max_value=10, value=1)
+        k_question = st.number_input(
+            "Question Count", min_value=1, max_value=10, value=1
+        )
 
+st.title("History Exam")
 
-st.title("Turkish Exam")
+generate_test = 1 if multiple_questions else 0
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -56,24 +52,22 @@ if user_input:
 
     with st.spinner("Generating response..."):
         # FROM API
-        question_json_str = json.dumps({"question": user_input})
         payload = {
-            "question": question_json_str,
+            "question": user_input,
+            "bloom": int(bloom_level),
+            "multiple_question": generate_test,
+            "k_lecture": int(k_lecture) if multiple_questions else 1,
+            "k_question": int(k_question) if multiple_questions else 1,
         }
         response = requests.post(API_URL, json=payload)
-        # response.raise_for_status()
 
         response_json = response.json()
 
-        answer = response_json["response"].split("Completed")[0]
-
-        result = answer
+        result = response_json["response"]
 
         with st.chat_message("assistant"):
             st.write(result)
             st.session_state.messages.append({"role": "assistant", "content": result})
-            with st.expander("See more details"):
-                st.write(response_json["raw_events"])
 else:
     with st.chat_message("assistant"):
         st.write("Size nasıl yardımcı olabilirim?")

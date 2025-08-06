@@ -11,7 +11,7 @@ with col1:
     st.header("Turkish Exams", divider=True)
     st.write("Generate questions for Turkish exams.")
     st.write("Explore various topics and levels and grades.")
-    st.page_link(label="Start Generate Turkish Exams", page="pages/turkish_exam.py", icon=":material/book:")
+    st.page_link(label="Start Generate Turkish Exams", page="pages/history_exam.py", icon=":material/book:")
 
 with col2:
     st.header("English Exams", divider=True)

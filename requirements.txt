@@ -10,3 +10,4 @@ langchain-aws
 streamlit
 tqdm
 streamlit-authenticator~=0.3.3
+pyperclip

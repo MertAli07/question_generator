@@ -48,9 +48,9 @@ elif authentication_status == None:
 else:
     
 
-    turkish_exam_page = st.Page(
-        page="pages/turkish_exam.py",
-        title="Turkish Exam",
+    history_exam_page = st.Page(
+        page="pages/history_exam.py",
+        title="History Exam",
         icon=":material/book:",
     )
 
@@ -84,16 +84,16 @@ else:
         icon=":material/edit:",
     )
 
-    turkish_question_page= st.Page(
-        page="pages/turkish_question.py",
-        title="Turkish Question",
+    math_question_page= st.Page(
+        page="pages/math_question.py",
+        title="Math Question",
         icon=":material/question_answer:",
     )
 
     pg = st.navigation(
         {
             "Home": [home_page],
-            "Exams": [turkish_question_page, turkish_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
+            "Exams": [math_question_page, history_exam_page, english_exam_page, certification_exam_page, custom_exam_page],
             "About Us": [about_page],
         }
     )
